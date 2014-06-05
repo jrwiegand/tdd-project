@@ -1,6 +1,6 @@
 TDD
 ===
-This is a completion of the book  `TDD with Python`_
+This is a completion of the book
 
 Overview
 --------
@@ -27,7 +27,6 @@ License
 This project is licensed under the `MIT License`_, meaning you
 can use it free of charge, without strings attached in commercial and non-commercial projects. I would love to
 get (non-mandatory) credit in case you release something based on this.
-.. _`TDD with Python`: http://chimera.labs.oreilly.com/books/1234000000754/
 .. _`django`: https://www.djangoproject.com/
 .. _`pip`: http://pip.readthedocs.org/en/latest/
 .. _`virtualenv`: http://virtualenv.readthedocs.org/en/latest/
