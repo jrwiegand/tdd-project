@@ -17,8 +17,4 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(to_field='id', default=None, to='lists.List'),
             preserve_default=True,
         ),
-        migrations.RemoveField(
-            model_name='list',
-            name='text',
-        ),
     ]

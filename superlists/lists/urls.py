@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('',
     url(r'^(\d+)/$', 'lists.views.view_list', name='view_list'),
