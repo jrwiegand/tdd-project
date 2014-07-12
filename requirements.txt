@@ -1,3 +1,2 @@
-Django==1.7c1
+https://github.com/django/django/archive/stable/1.7.x.zip
 gunicorn==18.0
-selenium==2.42.1
