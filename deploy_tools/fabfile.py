@@ -3,11 +3,11 @@ from fabric.api import env, local, run
 import random
 
 
-REPO_URL = 'https://github.com/jrwiegand/tdd-project.git'
+REPO_URL = 'https://github.com/hjwp/book-example.git'
 
 def deploy():
     site_folder = '/home/%s/sites/%s' % (env.user, env.host)
-    source_folder = site_folder + '/source/superlists'
+    source_folder = site_folder + '/source'
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder)
     _update_settings(source_folder, env.host)
