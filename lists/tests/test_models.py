@@ -64,10 +64,15 @@ class ListAndItemModelsTest(TestCase):
 
     def test_list_ordering(self):
         list1 = List.objects.create()
-        item = LIst.objects.create(list=list1, text='il')
-        item = LIst.objects.create(list=list1, text='item 2')
-        item = LIst.objects.create(list=list1, text='3')
+        item = List.objects.create(list=list1, text='il')
+        item = List.objects.create(list=list1, text='item 2')
+        item = List.objects.create(list=list1, text='3')
         self.assertEqual(
             Item.objects.all(),
             [item1, item2, item3]
         )
+
+
+    def test_string_representation(self):
+        item = Item(text='some text')
+        self.assertEqual(str(item), 'some text')
