@@ -1,2 +1,5 @@
-https://github.com/django/django/archive/stable/1.7.x.zip
-gunicorn==18.0
+Django==1.7c1
+ecdsa==0.11
+paramiko==1.14.0
+pycrypto==2.6.1
+selenium==2.42.1
