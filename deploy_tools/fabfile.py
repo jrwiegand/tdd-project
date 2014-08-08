@@ -1,5 +1,5 @@
 from fabric.contrib.files import append, exists, sed
-from fabric.api import env, local, run
+from fabric.api import env, local, run, sudo
 import random
 
 
@@ -15,7 +15,7 @@ def deploy():
     _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
-
+    _restart_app_server()
 
 def _create_directory_structure_if_necessary(site_folder):
     for subfolder in ('database', 'static', 'virtualenv', 'source'):
@@ -58,3 +58,7 @@ def _update_static_files(source_folder):
 
 def _update_database(source_folder):
     run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput' % (source_folder,))
+
+
+def _restart_app_server():
+    sudo('restart gunicorn-www.joshwiegand.com', pty=False)
