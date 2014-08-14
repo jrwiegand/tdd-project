@@ -26,4 +26,4 @@ class PersonaAuthenticationBackend(object):
 
 
     def get_user(self, email):
-        return ListUser.objects.get(email=email
+        return ListUser.objects.get(email=email)
