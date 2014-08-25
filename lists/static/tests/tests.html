@@ -8,7 +8,7 @@
 
 <body>
     <div id="qunit"></div>
-    <div id="qunit-fixture">
+        <div id="qunit-fixture">
         <a id="id_login">Sign in</a>
     </div>
 
@@ -18,9 +18,9 @@
     <script>
 /*global $, test, equal, sinon, Superlists */
 
-test("initialize binds sign in button to navigator.id.request", function() {
+test("initialize binds sign in button to navigator.id.request", function () {
     var requestWasCalled = false;
-    var mockRequestFunction = function() { requestWasCalled = true; };
+    var mockRequestFunction = function () { requestWasCalled = true; };
     var mockNavigator = {
         id: {
             request: mockRequestFunction
