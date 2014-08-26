@@ -1,5 +1,9 @@
+var initialize = function (navigator) {
+    navigator.id.request();
+};
+
 window.Superlists = {
     Accounts: {
-        initialize: function () {}
+        initialize: initialize
     }
 };
