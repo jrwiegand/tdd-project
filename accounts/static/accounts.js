@@ -3,7 +3,14 @@ var initialize = function (navigator) {
         navigator.id.request();
     });
     navigator.id.watch({
-        loggedInUser: user
+        loggedInUser: user,
+        onlogin: function (assertion) {
+            $.post(
+                urls.login,
+                { assertion: assertion, csrfmiddlewaretoken: token }
+            );
+        },
+        onlogout: function () {}
     });
 };
 

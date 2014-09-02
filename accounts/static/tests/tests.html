@@ -67,24 +67,30 @@ test("watch sees current user", function () {
 });
 
 test("onlogin does ajax post to login url", function () {
-    Superlists.Accounts.initialize(mockNavigator,user, token, urls);
-    var onloginCallback = mockNavigator.id.watch.firstCall.irgs[0].onlogin;
+    Superlists.Accounts.initialize(mockNavigator, user, token, urls);
+    var onloginCallback = mockNavigator.id.watch.firstCall.args[0].onlogin;
     onloginCallback();
-    equal(request.length, 1, 'check ajax request');
+    equal(requests.length, 1, 'check ajax request');
     equal(requests[0].method, 'POST');
     equal(requests[0].url, urls.login, 'check url');
 });
 
-test("onlogin sends assertion with xsrf token", function () {
+test("onlogin sends assertion with csrf token", function () {
     Superlists.Accounts.initialize(mockNavigator, user, token, urls);
     var onloginCallback = mockNavigator.id.watch.firstCall.args[0].onlogin;
     var assertion = 'browser-id assertion';
     onloginCallback(assertion);
     equal(
         requests[0].requestBody,
-        $.param({assertion: assertion, csrfmiddlewaretoken: token}),
+        $.param({ assertion: assertion, csrfmiddlewaretoken: token }),
         'check POST data'
-    ),
+    );
+});
+
+test("onlogout is just a placeholder", function () {
+    Superlists.Accounts.initialize(mockNavigator, user, token, urls);
+    var onlogoutCallback = mockNavigator.id.watch.firstCall.args[0].onlogout;
+    equal(typeof onlogoutCallback, "function", "onlogout should be a function")};
 });
         </script>
     </body>
