@@ -52,7 +52,7 @@ class NewVisitorTest(FunctionalTest):
         self.browser.quit()
         self.browser = webdriver.Firefox()
 
-        # Francis visits the home page. There is no sign of Edith's
+        # Francis visits the home page.  There is no sign of Edith's
         # list
         self.browser.get(self.server_url)
         page_text = self.browser.find_element_by_tag_name('body').text

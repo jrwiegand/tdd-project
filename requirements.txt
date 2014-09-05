@@ -1,6 +1,2 @@
-Django==1.7
-ecdsa==0.11
-paramiko==1.14.0
-pycrypto==2.6.1
-requests==2.3.0
-selenium==2.42.1
+django==1.7
+gunicorn==18.0
