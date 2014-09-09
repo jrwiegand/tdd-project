@@ -1,2 +1,7 @@
-django==1.7
-gunicorn==18.0
+Django==1.7
+certifi==14.05.14
+ecdsa==0.11
+paramiko==1.14.1
+pycrypto==2.6.1
+requests==2.4.0
+selenium==2.42.1
