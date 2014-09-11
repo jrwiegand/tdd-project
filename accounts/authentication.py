@@ -9,5 +9,17 @@ DOMAIN = 'localhost'
 class PersonaAuthenticationBackend(object):
 
     def authenticate(self, assertion):
-        requests.post(PERSONA_VERIFY_URL, data={'assertion': assertion, 'audience': DOMAIN})
-        return User.objects.first()
+        response = requests.post(PERSONA_VERIFY_URL, data={'assertion': assertion, 'audience': DOMAIN})
+        if response.ok and response.json()['status'] == 'okay':
+            email = response.json()['email']
+            try:
+                return User.objects.get(email=email)
+            except User.DoesNotExist:
+                return User.objects.create(email=email)
+
+
+    def get_user(self, email):
+        try:
+            return User.objects.get(email=email)
+        except User.DoesNotExist:
+            return None
