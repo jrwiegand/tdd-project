@@ -1,7 +1,6 @@
 import time
-from selenium.webdriver.support.ui import WebDriverWait
-
 from .base import FunctionalTest
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class LoginTest(FunctionalTest):

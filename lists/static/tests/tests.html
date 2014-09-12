@@ -18,6 +18,7 @@
         <script src="../list.js"></script>
         <script>
 /*global $, test, equal */
+
 test("errors should be hidden on keypress", function () {
     $('input').trigger('keypress');
     equal($('.has-error').is(':visible'), false);
