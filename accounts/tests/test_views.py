@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model, SESSION_KEY
 from django.test import TestCase
 from unittest.mock import patch
+
 User = get_user_model()
 
 

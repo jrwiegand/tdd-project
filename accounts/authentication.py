@@ -1,5 +1,6 @@
 import requests
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
 
 PERSONA_VERIFY_URL = 'https://verifier.login.persona.org/verify'
