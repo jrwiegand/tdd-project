@@ -17,10 +17,6 @@ Requirements
 
 *These are not exact intructions as this project is still under heavy construction*
 
-Documentation
--------------
-None some far but I would love for someone to help with that.
-
 Reporting Issues
 ----------------
 Use the `issue tracker`_ here on Github to report issues. Make sure you read the
