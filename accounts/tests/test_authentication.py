@@ -1,7 +1,8 @@
 from unittest.mock import patch
+from django.conf import settings
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from accounts.authentication import (PERSONA_VERIFY_URL, DOMAIN, PersonaAuthenticationBackend)
+from accounts.authentication import (PERSONA_VERIFY_URL, PersonaAuthenticationBackend)
 
 User = get_user_model()
 
@@ -18,7 +19,7 @@ class AuthenticateTest(TestCase):
 
     def test_sends_assertion_to_mozilla_with_domain(self, mock_post):
         self.backend.authenticate('an assertion')
-        mock_post.assert_called_once_with(PERSONA_VERIFY_URL, data={'assertion': 'an assertion', 'audience': DOMAIN})
+        mock_post.assert_called_once_with(PERSONA_VERIFY_URL, data={'assertion': 'an assertion', 'audience': settings.DOMAIN})
 
 
     def test_returns_none_if_response_errors(self, mock_post):
@@ -77,7 +78,7 @@ class AuthenticateTest(TestCase):
 
     def test_sends_assertion_to_mozilla_with_domain(self, mock_post):
         self.backend.authenticate('an assertion')
-        mock_post.assert_called_once_with(PERSONA_VERIFY_URL, data={'assertion': 'an assertion', 'audience': DOMAIN})
+        mock_post.assert_called_once_with(PERSONA_VERIFY_URL, data={'assertion': 'an assertion', 'audience': settings.DOMAIN})
 
 
     def test_returns_none_if_response_errors(self, mock_post):
