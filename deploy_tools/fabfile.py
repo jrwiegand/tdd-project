@@ -61,4 +61,5 @@ def _update_database(source_folder):
 
 
 def _restart_app_server():
+    sudo('restart gunicorn-dev.joshwiegand.com', pty=False)
     sudo('restart gunicorn-www.joshwiegand.com', pty=False)
