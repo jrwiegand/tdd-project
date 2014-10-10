@@ -1,4 +1,5 @@
 import time
+from selenium.common.exceptions import NoSuchWindowException
 from .base import FunctionalTest
 
 TEST_EMAIL = 'edith@mockmyid.com'
@@ -25,7 +26,14 @@ class LoginTest(FunctionalTest):
         self.browser.find_element_by_id('id_login').click()
 
         # A Persona login box appears
-        self.switch_to_new_window('Mozilla Persona')
+        try:
+            self.switch_to_new_window('Mozilla Persona')
+        except NoSuchWindowException:
+            print(self.browser.title)
+            print(self.browser.window_handles)
+        except InvalidSwitchToTargetException:
+            print(self.browser.title)
+            print(self.browser.window_handles)
 
         # Edith logs in with her email address
         ## Use mockmyid.com for test email

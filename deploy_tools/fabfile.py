@@ -2,7 +2,6 @@ from fabric.contrib.files import append, exists, sed
 from fabric.api import env, local, run, sudo
 import random
 
-
 REPO_URL = 'https://github.com/jrwiegand/tdd-project.git'
 
 
@@ -16,6 +15,7 @@ def deploy():
     _update_static_files(source_folder)
     _update_database(source_folder)
     _restart_app_server()
+
 
 def _create_directory_structure_if_necessary(site_folder):
     for subfolder in ('database', 'static', 'virtualenv', 'source'):
@@ -36,7 +36,6 @@ def _update_settings(source_folder, site_name):
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path, 'DOMAIN = "localhost"', 'DOMAIN = "%s"' % (site_name,))
     secret_key_file = source_folder + '/superlists/secret_key.py'
-
     if not exists(secret_key_file):
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
@@ -48,7 +47,6 @@ def _update_virtualenv(source_folder):
     virtualenv_folder = source_folder + '/../virtualenv'
     if not exists(virtualenv_folder + '/bin/pip'):
         run('virtualenv --python=python3 %s' % (virtualenv_folder,))
-
     run('%s/bin/pip install -r %s/requirements.txt' % (virtualenv_folder, source_folder))
 
 

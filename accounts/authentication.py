@@ -3,8 +3,8 @@ import requests
 from django.conf import settings
 from django.contrib.auth import get_user_model
 
-logger = logging.getLogger(__name__)
 User = get_user_model()
+logger = logging.getLogger(__name__)
 
 PERSONA_VERIFY_URL = 'https://verifier.login.persona.org/verify'
 
@@ -12,7 +12,10 @@ PERSONA_VERIFY_URL = 'https://verifier.login.persona.org/verify'
 class PersonaAuthenticationBackend(object):
 
     def authenticate(self, assertion):
-        response = requests.post(PERSONA_VERIFY_URL, data={'assertion': assertion, 'audience': settings.DOMAIN})
+        response = requests.post(
+            PERSONA_VERIFY_URL,
+            data={'assertion': assertion, 'audience': settings.DOMAIN}
+        )
         if response.ok and response.json()['status'] == 'okay':
             email = response.json()['email']
             try:

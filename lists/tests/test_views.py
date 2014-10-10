@@ -1,7 +1,7 @@
 from django.test import TestCase
-from lists.models import Item, List
 from django.utils.html import escape
-from lists.forms import (DUPLICATE_ITEM_ERROR, EMPTY_LIST_ERROR, ExistingListItemForm, ItemForm,)
+from lists.forms import (DUPLICATE_ITEM_ERROR, EMPTY_ITEM_ERROR, ExistingListItemForm, ItemForm,)
+from lists.models import Item, List
 
 
 class HomePageTest(TestCase):
@@ -39,7 +39,7 @@ class NewListTest(TestCase):
 
     def test_validation_errors_are_shown_on_home_page(self):
         response = self.client.post('/lists/new', data={'text': ''})
-        self.assertContains(response, escape(EMPTY_LIST_ERROR))
+        self.assertContains(response, escape(EMPTY_ITEM_ERROR))
 
 
     def test_for_invalid_input_passes_form_to_template(self):
@@ -94,10 +94,7 @@ class ListViewTest(TestCase):
     def test_can_save_a_POST_request_to_an_existing_list(self):
         other_list = List.objects.create()
         correct_list = List.objects.create()
-        self.client.post(
-            '/lists/%d/' % (correct_list.id,),
-            data={'text': 'A new item for an existing list'}
-        )
+        self.client.post('/lists/%d/' % (correct_list.id,), data={'text': 'A new item for an existing list'})
 
         self.assertEqual(Item.objects.count(), 1)
         new_item = Item.objects.first()
@@ -108,10 +105,7 @@ class ListViewTest(TestCase):
     def test_POST_redirects_to_list_view(self):
         other_list = List.objects.create()
         correct_list = List.objects.create()
-        response = self.client.post(
-            '/lists/%d/' % (correct_list.id,),
-            data={'text': 'A new item for an existing list'}
-        )
+        response = self.client.post('/lists/%d/' % (correct_list.id,), data={'text': 'A new item for an existing list'})
         self.assertRedirects(response, '/lists/%d/' % (correct_list.id,))
 
 
@@ -138,7 +132,7 @@ class ListViewTest(TestCase):
 
     def test_for_invalid_input_shows_error_on_page(self):
         response = self.post_invalid_input()
-        self.assertContains(response, escape(EMPTY_LIST_ERROR))
+        self.assertContains(response, escape(EMPTY_ITEM_ERROR))
 
 
     def test_duplicate_item_validation_errors_end_up_on_lists_page(self):

@@ -10,8 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -24,11 +23,10 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-# This setting is change by the deploy script
+# This setting is changed by the deploy script
 DOMAIN = "localhost"
 
 ALLOWED_HOSTS = [DOMAIN]
-
 
 # Application definition
 
@@ -48,6 +46,7 @@ AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = (
     'accounts.authentication.PersonaAuthenticationBackend',
 )
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
