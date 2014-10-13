@@ -26,15 +26,7 @@ class LoginTest(FunctionalTest):
         self.browser.find_element_by_id('id_login').click()
 
         # A Persona login box appears
-        try:
-            self.switch_to_new_window('Mozilla Persona')
-        except NoSuchWindowException:
-            print(self.browser.title)
-            print(self.browser.window_handles)
-        except InvalidSwitchToTargetException:
-            print(self.browser.title)
-            print(self.browser.window_handles)
-
+        self.switch_to_new_window('Mozilla Persona')
         # Edith logs in with her email address
         ## Use mockmyid.com for test email
         self.browser.find_element_by_id(
