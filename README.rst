@@ -3,7 +3,7 @@ Test Driven Development
 
 Overview
 --------
-This is a `django`_ web application tutorial with TDD. The tutorial comes from the book `Test Driven Web Development with Python`_
+This is a `django`_ web application tutorial with TDD. The tutorial comes from the book `Test Driven Web Development with Python`_ and includes his repo, `here`_.
 
 Requirements
 ------------
@@ -31,6 +31,7 @@ This project is licensed under the `MIT License`_, meaning you can use it free o
 
 .. _`django`: https://www.djangoproject.com/
 .. _`Test Driven Web Development with Python`: http://chimera.labs.oreilly.com/books/1234000000754/
+.. _`here`: https://github.com/hjwp/book-example
 .. _`pip`: http://pip.readthedocs.org/en/latest/
 .. _`virtualenv`: http://virtualenv.readthedocs.org/en/latest/
 .. _`git`: http://git-scm.com/
