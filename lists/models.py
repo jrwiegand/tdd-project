@@ -10,6 +10,11 @@ class List(models.Model):
         return reverse('view_list', args=[self.id])
 
 
+    @property
+    def name(self):
+        return self.item_set.first().text
+
+
 class Item(models.Model):
     text = models.TextField(default='')
     list = models.ForeignKey(List, default=None)
@@ -21,3 +26,4 @@ class Item(models.Model):
 
     def __str__(self):
         return self.text
+
