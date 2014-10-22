@@ -5,10 +5,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from lists.views import new_list
-from lists.forms import (
-    DUPLICATE_ITEM_ERROR, EMPTY_ITEM_ERROR,
-    ExistingListItemForm, ItemForm,
-)
+from lists.forms import (DUPLICATE_ITEM_ERROR, EMPTY_ITEM_ERROR, ExistingListItemForm, ItemForm,)
 from lists.models import Item, List
 
 
@@ -68,13 +65,18 @@ class NewListTest(TestCase):
         self.assertEqual(Item.objects.count(), 0)
 
 
-    def test_list_owner_is_saved_if_user_is_authenticated(self):
+    @patch('lists.views.List')
+    def test_list_owner_is_saved_if_user_is_authenticated(self, mockList):
+        mock_list = List.objects.create()
+        mock_list.save = Mock()
+        mockList.return_value = mock_list
         request = HttpRequest()
-        request.user = User.objects.create(email='a@b.com')
+        request.user = User.objects.create()
         request.POST['text'] = 'new list item'
+
         new_list(request)
-        list_ = List.objects.first()
-        self.assertEqual(list_.owner, request.user)
+
+        self.assertEqual(mock_list.owner, request.user)
 
 
 
