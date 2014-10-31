@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-
 class UserModelTest(TestCase):
 
     def test_user_is_valid_with_email_only(self):
@@ -19,3 +18,4 @@ class UserModelTest(TestCase):
     def test_is_authenticated(self):
         user = User()
         self.assertTrue(user.is_authenticated())
+
