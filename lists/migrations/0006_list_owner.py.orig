@@ -1,0 +1,30 @@
+<<<<<<< HEAD
+# encoding: utf8
+=======
+# -*- coding: utf-8 -*-
+>>>>>>> d9b56c735ed5c58bc698c4c31aeabb8febbf1b3a
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+from django.conf import settings
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('lists', '0005_list_item_unique_together'),
+    ]
+
+    operations = [
+        migrations.AddField(
+            model_name='list',
+            name='owner',
+<<<<<<< HEAD
+            field=models.ForeignKey(to_field='email', blank=True, null=True, to=settings.AUTH_USER_MODEL),
+=======
+            field=models.ForeignKey(blank=True, null=True, to=settings.AUTH_USER_MODEL),
+>>>>>>> d9b56c735ed5c58bc698c4c31aeabb8febbf1b3a
+            preserve_default=True,
+        ),
+    ]
