@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+        <title>To-Do lists</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet" />
+        <link media="screen" rel="stylesheet" href="/static/base.css" />
+    </head>
+    <body>
+        <div class="container">
+            <nav role="navigation" class="navbar navbar-default">
+                <a href="/" class="navbar-brand">Superlists</a>
+                
+                        <ul class="nav navbar-nav">
+                            <li><a href="/lists/users/edith%40example.com/">My lists</a></li>
+                        </ul>
+                    <a href="/accounts/logout" id="id_logout" class="btn navbar-btn navbar-right">Log out</a>
+                    <span class="navbar-text navbar-right">Logged in as edith@example.com</span>
+                
+            </nav>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 jumbotron">
+                    <div class="text-center">
+                        <h1>My Lists</h1>
+
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    
+    <h2>edith@example.com's lists</h2>
+    &lt;<ul>
+        
+            <li>&lt;<a href="/lists/1/">Reticulate splines</a></li>
+        
+    </ul>
+
+                </div>
+            </div>
+        </div>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="https://login.persona.org/include.js"></script>
+        <script src="/static/accounts.js"></script>
+        <script src="/static/list.js"></script>
+        <script>
+/*global $, Superlists, navigator */
+$(document).ready(function () {
+    var user = "edith@example.com" || null;
+    var token = "lFoDXCRJpUXkXR2WRNrV23OdWoFduCi3";
+    var urls = {
+        login: "/accounts/login",
+        logout: "TODO",
+    };
+    Superlists.Accounts.initialize(navigator, user, token, urls);
+});
+        </script>
+    
+
+<iframe style="display: none;" src="https://login.persona.org/communication_iframe"></iframe></body><canvas id="fxdriver-screenshot-canvas" style="display: none;" width="1080" height="576"></canvas></html>

@@ -71,6 +71,7 @@ class AuthenticateTest(TestCase):
         )
 
 
+
 class GetUserTest(TestCase):
 
     def test_gets_user_by_email(self):
@@ -88,3 +89,5 @@ class GetUserTest(TestCase):
         self.assertIsNone(
             backend.get_user('a@b.com')
         )
+
+

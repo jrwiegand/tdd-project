@@ -1,5 +1,4 @@
 import time
-from selenium.common.exceptions import NoSuchWindowException
 from .base import FunctionalTest
 
 TEST_EMAIL = 'edith@mockmyid.com'
@@ -27,6 +26,7 @@ class LoginTest(FunctionalTest):
 
         # A Persona login box appears
         self.switch_to_new_window('Mozilla Persona')
+
         # Edith logs in with her email address
         ## Use mockmyid.com for test email
         self.browser.find_element_by_id(
@@ -52,3 +52,4 @@ class LoginTest(FunctionalTest):
         # The "logged out" status also persists after a refresh
         self.browser.refresh()
         self.wait_to_be_logged_out(email=TEST_EMAIL)
+

@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Javascript tests</title>
-        <link rel="stylesheet" href="../../../superlists/static/tests/qunit.css">
-    </head>
-    <body>
-        <div id="qunit"></div>
-        <div id="qunit-fixture">
-            <a id="id_login">Sign in</a>
-        </div>
+<head>
+    <meta charset="utf-8">
+    <title>Javascript tests</title>
+    <link rel="stylesheet" href="../../../superlists/static/tests/qunit.css">
+</head>
 
-        <script src="http://code.jquery.com/jquery.min.js"></script>
-        <script src="../../../superlists/static/tests/qunit.js"></script>
-        <script src="../../../superlists/static/tests/sinon.js"></script>
-        <script src="../accounts.js"></script>
-        <script>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture">
+        <a id="id_login">Sign in</a>
+    </div>
+
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="../../../superlists/static/tests/qunit.js"></script>
+    <script src="../../../superlists/static/tests/sinon.js"></script>
+    <script src="../accounts.js"></script>
+    <script>
 /*global $, test, equal, sinon, Superlists */
 
 test("initialize binds sign in button to navigator.id.request", function () {
@@ -27,8 +28,10 @@ test("initialize binds sign in button to navigator.id.request", function () {
             watch: function () {}
         }
     };
+
     Superlists.Accounts.initialize(mockNavigator);
     equal(requestWasCalled, false, 'check request not called before click');
+
     $('#id_login').trigger('click');
     equal(requestWasCalled, true, 'check request called after click');
 });
@@ -105,6 +108,8 @@ test("onlogin post failure should do navigator.id.logout ", function () {
     server.respond();
     equal(mockNavigator.id.logout.called, true, 'should call logout');
 });
-        </script>
-    </body>
+
+    </script>
+
+</body>
 </html>

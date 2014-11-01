@@ -19,3 +19,4 @@ def create_session_on_server(host, email):
         ],
         cwd=THIS_FOLDER
     ).decode().strip()
+

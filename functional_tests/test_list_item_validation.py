@@ -63,3 +63,4 @@ class ItemValidationTest(FunctionalTest):
         # She is pleased to see that the error message disappears
         error = self.get_error_element()
         self.assertFalse(error.is_displayed())
+
