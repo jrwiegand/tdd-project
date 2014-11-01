@@ -1,4 +1,4 @@
-# encoding: utf8
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.db import models, migrations
@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='list',
             name='owner',
-            field=models.ForeignKey(to_field='email', blank=True, null=True, to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(blank=True, null=True, to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]
