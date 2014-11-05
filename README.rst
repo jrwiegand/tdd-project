@@ -3,7 +3,7 @@ Test Driven Development
 
 Overview
 --------
-This is a `django`_ web application tutorial with TDD. The tutorial comes from the book `Test Driven Web Development with Python`_ and includes his repo, `here`_.
+This is a `django`_ web application tutorial with Test Driven Development. The tutorial comes from the book `Test Driven Web Development with Python`_ and includes his repo, `here`_.
 
 Requirements
 ------------
