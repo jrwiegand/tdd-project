@@ -6,4 +6,3 @@ def persona_login(request):
     if user:
         login(request, user)
     return HttpResponse('OK')
-

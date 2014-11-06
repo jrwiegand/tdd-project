@@ -3,37 +3,38 @@
     <head>
         <title>To-Do lists</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
         <link href="/static/base.css" rel="stylesheet" media="screen">
     </head>
     <body>
         <div class="container">
             <nav class="navbar navbar-default" role="navigation">
-                <a class="navbar-brand" href="/">Superlists</a>
-                {% if user.email %}
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">Superlists</a>
+                    {% if user.email %}
                         <ul class="nav navbar-nav">
                             <li><a href="{% url 'my_lists' user.email %}">My lists</a></li>
                         </ul>
-                    <a class="btn navbar-btn navbar-right" id="id_logout" href="{% url 'logout' %}">Log out</a>
-                    <span class="navbar-text navbar-right">Logged in as {{ user.email }}</span>
-                {% else %}
-                    <a class="btn navbar-btn navbar-right" id="id_login" href="#">Sign in</a>
-                {% endif %}
+                        <a class="btn navbar-btn navbar-right" id="id_logout" href="{% url 'logout' %}">Log out</a>
+                        <span class="navbar-text navbar-right">Logged in as {{ user.email }}</span>
+                    {% else %}
+                        <a class="btn navbar-btn navbar-right" id="id_login" href="#">Sign in</a>
+                    {% endif %}
+                </div>
             </nav>
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 jumbotron">
                     <div class="text-center">
                         <h1>{% block header_text %}{% endblock %}</h1>
-
                         {% block list_form %}
                         <form method="POST" action="{% block form_action %}{% endblock %}">
                             {{ form.text }}
                             {% csrf_token %}
                             {% if form.errors %}
-                                <div class="form-group has-error">
-                                    <div class="help-block">{{ form.text.errors }}</div>
-                                </div>
+                            <div class="form-group has-error">
+                                <div class="help-block">{{ form.text.errors }}</div>
+                            </div>
                             {% endif %}
                         </form>
                         {% endblock %}
@@ -53,8 +54,8 @@
                 </div>
             </div>
         </div>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="https://login.persona.org/include.js"></script>
         <script src="/static/accounts.js"></script>
         <script src="/static/list.js"></script>

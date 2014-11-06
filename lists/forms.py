@@ -12,15 +12,13 @@ class ItemForm(forms.models.ModelForm):
         model = Item
         fields = ('text',)
         widgets = {
-            'text': forms.fields.TextInput(attrs={
-                'placeholder': 'Enter a to-do item',
-                'class': 'form-control input-lg',
-            }),
+            'text': forms.fields.TextInput(
+                attrs={'placeholder': 'Enter a to-do item', 'class': 'form-control input-lg',}
+            ),
         }
         error_messages = {
             'text': {'required': EMPTY_ITEM_ERROR}
         }
-
 
 
 class NewListForm(ItemForm):
@@ -30,7 +28,6 @@ class NewListForm(ItemForm):
             return List.create_new(first_item_text=self.cleaned_data['text'], owner=owner)
         else:
             return List.create_new(first_item_text=self.cleaned_data['text'])
-
 
 
 class ExistingListItemForm(ItemForm):
@@ -46,4 +43,3 @@ class ExistingListItemForm(ItemForm):
         except ValidationError as e:
             e.error_dict = {'text': [DUPLICATE_ITEM_ERROR]}
             self._update_errors(e)
-

@@ -22,4 +22,3 @@ def create_session_on_server(email):
         email=email,
     ))
     print(session_key)
-

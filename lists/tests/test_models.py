@@ -50,16 +50,12 @@ class ItemModelTest(TestCase):
         item1 = Item.objects.create(list=list1, text='i1')
         item2 = Item.objects.create(list=list1, text='item 2')
         item3 = Item.objects.create(list=list1, text='3')
-        self.assertEqual(
-            list(Item.objects.all()),
-            [item1, item2, item3]
-        )
+        self.assertEqual(list(Item.objects.all()), [item1, item2, item3])
 
 
     def test_string_representation(self):
         item = Item(text='some text')
         self.assertEqual(str(item), 'some text')
-
 
 
 class ListModelTest(TestCase):
@@ -103,4 +99,3 @@ class ListModelTest(TestCase):
         returned = List.create_new(first_item_text='new item text')
         new_list = List.objects.first()
         self.assertEqual(returned, new_list)
-
