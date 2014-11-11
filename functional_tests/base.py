@@ -2,12 +2,13 @@ import os
 import sys
 import time
 from datetime import datetime
-SCREEN_DUMP_LOCATION = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'screendumps')
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import WebDriverException
 from .server_tools import reset_database
+DEFAULT_WAIT = 5
+SCREEN_DUMP_LOCATION = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'screendumps')
 
 
 class FunctionalTest(StaticLiveServerTestCase):
@@ -35,7 +36,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             reset_database(self.server_host)
 
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
+        self.browser.implicitly_wait(DEFAULT_WAIT)
 
 
     def get_item_input_box(self):
