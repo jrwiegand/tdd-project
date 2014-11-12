@@ -32,9 +32,6 @@ class FunctionalTest(StaticLiveServerTestCase):
 
 
     def setUp(self):
-        if self.against_staging:
-            reset_database(self.server_host)
-
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(DEFAULT_WAIT)
 
