@@ -16,7 +16,9 @@ class LoginViewTest(TestCase):
 
 
     @patch('accounts.views.authenticate')
-    def test_returns_OK_when_user_found(self, mock_authenticate):
+    def test_returns_OK_when_user_found(
+        self, mock_authenticate
+    ):
         user = User.objects.create(email='a@b.com')
         user.backend = ''  # required for auth_login to work
         mock_authenticate.return_value = user
@@ -25,7 +27,9 @@ class LoginViewTest(TestCase):
 
 
     @patch('accounts.views.authenticate')
-    def test_gets_logged_in_session_if_authenticate_returns_a_user(self, mock_authenticate):
+    def test_gets_logged_in_session_if_authenticate_returns_a_user(
+        self, mock_authenticate
+    ):
         user = User.objects.create(email='a@b.com')
         user.backend = ''  # required for auth_login to work
         mock_authenticate.return_value = user
@@ -34,7 +38,10 @@ class LoginViewTest(TestCase):
 
 
     @patch('accounts.views.authenticate')
-    def test_does_not_get_logged_in_if_authenticate_returns_None(self, mock_authenticate):
+    def test_does_not_get_logged_in_if_authenticate_returns_None(
+        self, mock_authenticate
+    ):
         mock_authenticate.return_value = None
         self.client.post('/accounts/login', {'assertion': 'a'})
         self.assertNotIn(SESSION_KEY, self.client.session)
+

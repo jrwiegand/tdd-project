@@ -127,3 +127,4 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.wait_for_element_with_id('id_login')
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertNotIn(email, navbar.text)
+

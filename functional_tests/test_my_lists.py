@@ -37,13 +37,7 @@ class MyListsTest(FunctionalTest):
 
         # She sees that her list is in there, named according to its
         # first list item
-        try:
-            self.browser.find_element_by_link_text('Reticulate splines').click()
-        except:
-            print('could not find reticulate splines link')
-            print(self.browser.find_element_by_tag_name('body').text)
-            print(self.browser.page_source)
-
+        self.browser.find_element_by_link_text('Reticulate splines').click()
         self.wait_for(
             lambda: self.assertEqual(self.browser.current_url, first_list_url)
         )
@@ -55,7 +49,7 @@ class MyListsTest(FunctionalTest):
 
         # Under "my lists", her new list appears
         self.browser.find_element_by_link_text('My lists').click()
-        self.browser.find_element_by_xpath("//*[contains(text(), 'Click cows')]").click()
+        self.browser.find_element_by_link_text('Click cows').click()
         self.assertEqual(self.browser.current_url, second_list_url)
 
         # She logs out.  The "My lists" option disappears
@@ -64,3 +58,4 @@ class MyListsTest(FunctionalTest):
             self.browser.find_elements_by_link_text('My lists'),
             []
         )
+

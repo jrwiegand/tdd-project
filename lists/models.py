@@ -22,6 +22,7 @@ class List(models.Model):
         return list_
 
 
+
 class Item(models.Model):
     text = models.TextField(default='')
     list = models.ForeignKey(List, default=None)
@@ -33,3 +34,4 @@ class Item(models.Model):
 
     def __str__(self):
         return self.text
+
