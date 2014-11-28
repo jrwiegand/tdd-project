@@ -26,10 +26,8 @@ class PersonaAuthenticationBackend(object):
                 'Persona says no. Json was: {}'.format(response.json())
             )
 
-
     def get_user(self, email):
         try:
             return User.objects.get(email=email)
         except User.DoesNotExist:
             return None
-

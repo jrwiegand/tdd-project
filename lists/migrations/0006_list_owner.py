@@ -16,7 +16,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='list',
             name='owner',
-            field=models.ForeignKey(to_field='email', blank=True, null=True, to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(
+                to_field='email',
+                blank=True,
+                null=True,
+                to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]

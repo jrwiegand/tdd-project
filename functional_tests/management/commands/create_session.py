@@ -19,4 +19,3 @@ def create_pre_authenticated_session(email):
     session[BACKEND_SESSION_KEY] = settings.AUTHENTICATION_BACKENDS[0]
     session.save()
     return session.session_key
-
