@@ -22,6 +22,7 @@ class ItemForm(forms.models.ModelForm):
         }
 
 
+
 class NewListForm(ItemForm):
 
     def save(self, owner):
