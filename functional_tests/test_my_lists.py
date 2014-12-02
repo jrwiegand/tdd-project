@@ -36,8 +36,7 @@ class MyListsTest(FunctionalTest):
 
         # She sees that her list is in there, named according to its
         # first list item
-        self.browser.find_element_by_xpath(
-            "//*[contains(text(), 'Reticulate splines')]").click()
+        self.browser.find_element_by_link_text('Reticulate splines').click()
         self.wait_for(
             lambda: self.assertEqual(self.browser.current_url, first_list_url)
         )
@@ -48,10 +47,8 @@ class MyListsTest(FunctionalTest):
         second_list_url = self.browser.current_url
 
         # Under "my lists", her new list appears
-        self.browser.find_element_by_xpath(
-            "//*[contains(text(), 'My lists')]").click()
-        self.browser.find_element_by_xpath(
-            "//*[contains(text(), 'Click cows')]").click()
+        self.browser.find_element_by_link_text('My lists').click()
+        self.browser.find_element_by_link_text('Click cows').click()
         self.assertEqual(self.browser.current_url, second_list_url)
 
         # She logs out.  The "My lists" option disappears
