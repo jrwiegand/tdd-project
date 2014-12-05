@@ -1,9 +1,12 @@
 from selenium import webdriver
 from .base import FunctionalTest
 
+
 def quit_if_possible(browser):
-    try: browser.quit()
-    except: pass
+    try:
+        browser.quit()
+    except:
+        pass
 
 
 class SharingTest(FunctionalTest):
@@ -26,7 +29,8 @@ class SharingTest(FunctionalTest):
         self.get_item_input_box().send_keys('Get help\n')
 
         # She notices a "Share this list" option
-        share_box = self.browser.find_element_by_css_selector('input[name=email]')
+        share_box = self.browser.find_element_by_css_selector(
+            'input[name=email]')
         self.assertEqual(
             share_box.get_attribute('placeholder'),
             'your-friend@example.com'
