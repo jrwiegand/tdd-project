@@ -1,139 +1,142 @@
-/*
- * QtWebKit-powered headless test runner using PhantomJS
- *
- * PhantomJS binaries: http://phantomjs.org/download.html
- * Requires PhantomJS 1.6+ (1.7+ recommended)
- *
- * Run with:
- *   phantomjs runner.js [url-of-your-qunit-testsuite]
- *
- * e.g.
- *   phantomjs runner.js http://localhost/qunit/test/index.html
- */
-
 /*global phantom:false, require:false, console:false, window:false, QUnit:false */
 
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	var url, page, timeout,
-		args = require('system').args;
+    var url, page, timeout,
+        args = require('system').args;
 
-	// arg[0]: scriptName, args[1...]: arguments
-	if (args.length < 2 || args.length > 3) {
-		console.error('Usage:\n  phantomjs runner.js [url-of-your-qunit-testsuite] [timeout-in-seconds]');
-		phantom.exit(1);
-	}
+    // arg[0]: scriptName, args[1...]: arguments
+    if (args.length < 2) {
+        console.error('Usage:\n  phantomjs [phantom arguments] runner.js [url-of-your-qunit-testsuite] [timeout-in-seconds]');
+        phantom.exit(1);
+    }
 
-	url = args[1];
-	page = require('webpage').create();
-	if (args[2] !== undefined) {
-		timeout = parseInt(args[2], 10);
-	}
+    url = args[1];
 
-	// Route `console.log()` calls from within the Page context to the main Phantom context (i.e. current `this`)
-	page.onConsoleMessage = function(msg) {
-		console.log(msg);
-	};
+    if (args[2] !== undefined) {
+        timeout = parseInt(args[2], 10);
+    }
 
-	page.onInitialized = function() {
-		page.evaluate(addLogging);
-	};
+    page = require('webpage').create();
 
-	page.onCallback = function(message) {
-		var result,
-			failed;
+    // Route `console.log()` calls from within the Page context to the main Phantom context (i.e. current `this`)
+    page.onConsoleMessage = function (msg) {
+        console.log(msg);
+    };
 
-		if (message) {
-			if (message.name === 'QUnit.done') {
-				result = message.data;
-				failed = !result || result.failed;
+    page.onInitialized = function () {
+        page.evaluate(addLogging);
+    };
 
-				phantom.exit(failed ? 1 : 0);
-			}
-		}
-	};
+    page.onCallback = function (message) {
+        var result,
+            failed;
 
-	page.open(url, function(status) {
-		if (status !== 'success') {
-			console.error('Unable to access network: ' + status);
-			phantom.exit(1);
-		} else {
-			// Cannot do this verification with the 'DOMContentLoaded' handler because it
-			// will be too late to attach it if a page does not have any script tags.
-			var qunitMissing = page.evaluate(function() { return (typeof QUnit === 'undefined' || !QUnit); });
-			if (qunitMissing) {
-				console.error('The `QUnit` object is not present on this page.');
-				phantom.exit(1);
-			}
+        if (message) {
+            if (message.name === 'QUnit.done') {
+                result = message.data;
+                failed = !result || !result.total || result.failed;
 
-			// Set a timeout on the test running, otherwise tests with async problems will hang forever
-			if (typeof timeout === 'number') {
-				setTimeout(function() {
-					console.error('The specified timeout of ' + timeout + ' seconds has expired. Aborting...');
-					phantom.exit(1);
-				}, timeout * 1000);
-			}
+                if (!result.total) {
+                    console.error('No tests were executed. Are you loading tests asynchronously?');
+                }
 
-			// Do nothing... the callback mechanism will handle everything!
-		}
-	});
+                phantom.exit(failed ? 1 : 0);
+            }
+        }
+    };
 
-	function addLogging() {
-		window.document.addEventListener('DOMContentLoaded', function() {
-			var currentTestAssertions = [];
+    page.open(url, function (status) {
+        if (status !== 'success') {
+            console.error('Unable to access network: ' + status);
+            phantom.exit(1);
+        } else {
+            // Cannot do this verification with the 'DOMContentLoaded' handler because it
+            // will be too late to attach it if a page does not have any script tags.
+            var qunitMissing = page.evaluate(function () {
+                return (typeof QUnit === 'undefined' || !QUnit);
+            });
+            if (qunitMissing) {
+                console.error('The `QUnit` object is not present on this page.');
+                phantom.exit(1);
+            }
 
-			QUnit.log(function(details) {
-				var response;
+            // Set a default timeout value if the user does not provide one
+            if (typeof timeout === 'undefined') {
+                timeout = 5;
+            }
 
-				// Ignore passing assertions
-				if (details.result) {
-					return;
-				}
+            // Set a timeout on the test running, otherwise tests with async problems will hang forever
+            setTimeout(function () {
+                console.error('The specified timeout of ' + timeout + ' seconds has expired. Aborting...');
+                phantom.exit(1);
+            }, timeout * 1000);
 
-				response = details.message || '';
+            // Do nothing... the callback mechanism will handle everything!
+        }
+    });
 
-				if (typeof details.expected !== 'undefined') {
-					if (response) {
-						response += ', ';
-					}
+    function addLogging() {
+        window.document.addEventListener('DOMContentLoaded', function () {
+            var currentTestAssertions = [];
 
-					response += 'expected: ' + details.expected + ', but was: ' + details.actual;
-				}
+            QUnit.log(function (details) {
+                var response;
 
-				if (details.source) {
-					response += "\n" + details.source;
-				}
+                // Ignore passing assertions
+                if (details.result) {
+                    return;
+                }
 
-				currentTestAssertions.push('Failed assertion: ' + response);
-			});
+                response = details.message || '';
 
-			QUnit.testDone(function(result) {
-				var i,
-					len,
-					name = result.module + ': ' + result.name;
+                if (typeof details.expected !== 'undefined') {
+                    if (response) {
+                        response += ', ';
+                    }
 
-				if (result.failed) {
-					console.log('Test failed: ' + name);
+                    response += 'expected: ' + details.expected + ', but was: ' + details.actual;
+                }
 
-					for (i = 0, len = currentTestAssertions.length; i < len; i++) {
-						console.log('    ' + currentTestAssertions[i]);
-					}
-				}
+                if (details.source) {
+                    response += '\n' + details.source;
+                }
 
-				currentTestAssertions.length = 0;
-			});
+                currentTestAssertions.push('Failed assertion: ' + response);
+            });
 
-			QUnit.done(function(result) {
-				console.log('Took ' + result.runtime +  'ms to run ' + result.total + ' tests. ' + result.passed + ' passed, ' + result.failed + ' failed.');
+            QUnit.testDone(function (result) {
+                var i,
+                    len,
+                    name = '';
 
-				if (typeof window.callPhantom === 'function') {
-					window.callPhantom({
-						'name': 'QUnit.done',
-						'data': result
-					});
-				}
-			});
-		}, false);
-	}
+                if (result.module) {
+                    name += result.module + ': ';
+                }
+                name += result.name;
+
+                if (result.failed) {
+                    console.log('\n' + 'Test failed: ' + name);
+
+                    for (i = 0, len = currentTestAssertions.length; i < len; i++) {
+                        console.log('    ' + currentTestAssertions[i]);
+                    }
+                }
+
+                currentTestAssertions.length = 0;
+            });
+
+            QUnit.done(function (result) {
+                console.log('\n' + 'Took ' + result.runtime + 'ms to run ' + result.total + ' tests. ' + result.passed + ' passed, ' + result.failed + ' failed.');
+
+                if (typeof window.callPhantom === 'function') {
+                    window.callPhantom({
+                        'name': 'QUnit.done',
+                        'data': result
+                    });
+                }
+            });
+        }, false);
+    }
 })();
