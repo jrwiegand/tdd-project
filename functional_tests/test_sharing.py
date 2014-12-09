@@ -26,7 +26,8 @@ class SharingTest(FunctionalTest):
 
         # She notices a "Share this list" option
         share_box = self.browser.find_element_by_css_selector(
-            'input[name=email]')
+            'input[name=email]'
+        )
         self.assertEqual(
             share_box.get_attribute('placeholder'),
             'your-friend@example.com'
