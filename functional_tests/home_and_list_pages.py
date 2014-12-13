@@ -37,7 +37,7 @@ class ListPage(object):
             [row.text for row in self.get_list_table_rows()]
         ))
 
-        def get_share_box(self):
+    def get_share_box(self):
         return self.test.browser.find_element_by_css_selector(
             'input[name=email]'
         )
