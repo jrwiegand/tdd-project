@@ -1,3 +1,6 @@
+from .home_and_list_pages import HomePage
+
+
 def quit_if_possible(browser):
     try:
         browser.quit()
@@ -21,15 +24,17 @@ class SharingTest(FunctionalTest):
 
         # Edith goes to the home page and starts a list
         self.browser = edith_browser
+        list_page = HomePage(self).start_new_list('Get help')
         self.browser.get(self.server_url)
         self.get_item_input_box().send_keys('Get help\n')
 
         # She notices a "Share this list" option
-        self.wait_for(
-            lambda: self.assertEqual(
-                self.browser.find_element_by_css_selector(
-                    'input[name=email]'
-                ).get_attribute('placeholder'),
-                'your-friend@example.com'
-            )
+        share_box = list_page.get_share_box()
+        self.assertEqual(
+            share_box.get_attribute('placeholder'),
+            'your-friend@example.com'
         )
+
+        # She shares her list.
+        # The page updates to say that it's shared with Oniciferous:
+        list_page.share_list_with('oniciferous@example.com')
