@@ -12,7 +12,7 @@ class HomePage(object):
         return self
 
     def get_item_input(self):
-        return self.test.browser.find_element_by_id('id_text')
+        return self.test.browser.find_element_by_id(ITEM_INPUT_ID)
 
     def start_new_list(self, item_text):
         self.go_to_home_page()
@@ -28,9 +28,6 @@ class HomePage(object):
             self.test.browser.find_element_by_tag_name('h1').text,
             'My Lists'
         ))
-
-    def get_item_input(self):
-        return self.test.browser.find_element_by_id(ITEM_INPUT_ID)
 
 
 class ListPage(object):

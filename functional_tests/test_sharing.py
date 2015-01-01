@@ -1,3 +1,5 @@
+from selenium import webdriver
+from .base import FunctionalTest
 from .home_and_list_pages import HomePage
 
 
@@ -25,8 +27,6 @@ class SharingTest(FunctionalTest):
         # Edith goes to the home page and starts a list
         self.browser = edith_browser
         list_page = HomePage(self).start_new_list('Get help')
-        self.browser.get(self.server_url)
-        self.get_item_input_box().send_keys('Get help\n')
 
         # She notices a "Share this list" option
         share_box = list_page.get_share_box()
