@@ -17,6 +17,7 @@ class LoginTest(FunctionalTest):
             time.sleep(0.5)
         self.fail('could not find window')
 
+
     def test_login_with_persona(self):
         # Edith goes to the awesome superlists site
         # and notices a "Sign in" link for the first time.
@@ -27,7 +28,7 @@ class LoginTest(FunctionalTest):
         self.switch_to_new_window('Mozilla Persona')
 
         # Edith logs in with her email address
-        # Use mockmyid.com for test email
+        ## Use mockmyid.com for test email
         self.browser.find_element_by_id(
             'authentication_email'
         ).send_keys(TEST_EMAIL)
@@ -51,3 +52,4 @@ class LoginTest(FunctionalTest):
         # The "logged out" status also persists after a refresh
         self.browser.refresh()
         self.wait_to_be_logged_out(email=TEST_EMAIL)
+

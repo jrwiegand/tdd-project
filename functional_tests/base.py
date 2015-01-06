@@ -17,7 +17,6 @@ SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'screendumps'
 )
 
-
 class FunctionalTest(StaticLiveServerTestCase):
 
     @classmethod
@@ -37,12 +36,14 @@ class FunctionalTest(StaticLiveServerTestCase):
         if not cls.against_staging:
             super().tearDownClass()
 
+
     def setUp(self):
         if self.against_staging:
             reset_database(self.server_host)
 
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(DEFAULT_WAIT)
+
 
     def tearDown(self):
         if self._test_has_failed():
@@ -56,6 +57,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.quit()
         super().tearDown()
 
+
     def _test_has_failed(self):
         # for 3.4. In 3.3, can just use self._outcomeForDoCleanups.success:
         for method, error in self._outcome.errors:
@@ -63,16 +65,19 @@ class FunctionalTest(StaticLiveServerTestCase):
                 return True
         return False
 
+
     def take_screenshot(self):
         filename = self._get_filename() + '.png'
         print('screenshotting to', filename)
         self.browser.get_screenshot_as_file(filename)
+
 
     def dump_html(self):
         filename = self._get_filename() + '.html'
         print('dumping page HTML to', filename)
         with open(filename, 'w') as f:
             f.write(self.browser.page_source)
+
 
     def _get_filename(self):
         timestamp = datetime.now().isoformat().replace(':', '.')[:19]
@@ -81,7 +86,9 @@ class FunctionalTest(StaticLiveServerTestCase):
             classname=self.__class__.__name__,
             method=self._testMethodName,
             windowid=self._windowid,
-            timestamp=timestamp)
+            timestamp=timestamp
+        )
+
 
     def wait_for(self, function_with_assertion, timeout=DEFAULT_WAIT):
         start_time = time.time()
@@ -93,13 +100,16 @@ class FunctionalTest(StaticLiveServerTestCase):
         # one more try, which will raise any errors if they are outstanding
         return function_with_assertion()
 
+
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
+
 
     def check_for_row_in_list_table(self, row_text):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(row_text, [row.text for row in rows])
+
 
     def wait_for_element_with_id(self, element_id):
         WebDriverWait(self.browser, timeout=30).until(
@@ -109,26 +119,30 @@ class FunctionalTest(StaticLiveServerTestCase):
             )
         )
 
+
     def wait_to_be_logged_in(self, email):
         self.wait_for_element_with_id('id_logout')
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertIn(email, navbar.text)
+
 
     def wait_to_be_logged_out(self, email):
         self.wait_for_element_with_id('id_login')
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertNotIn(email, navbar.text)
 
+
     def create_pre_authenticated_session(self, email):
         if self.against_staging:
             session_key = create_session_on_server(self.server_host, email)
         else:
             session_key = create_pre_authenticated_session(email)
-        # to set a cookie we need to first visit the domain.
-        # 404 pages load the quickest!
+        ## to set a cookie we need to first visit the domain.
+        ## 404 pages load the quickest!
         self.browser.get(self.server_url + "/404_no_such_url/")
         self.browser.add_cookie(dict(
             name=settings.SESSION_COOKIE_NAME,
             value=session_key,
             path='/',
         ))
+
