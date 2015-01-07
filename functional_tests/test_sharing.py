@@ -4,8 +4,10 @@ from .home_and_list_pages import HomePage
 
 
 def quit_if_possible(browser):
-    try: browser.quit()
-    except: pass
+    try:
+        browser.quit()
+    except:
+        pass
 
 
 class SharingTest(FunctionalTest):
@@ -57,4 +59,3 @@ class SharingTest(FunctionalTest):
         self.browser = edith_browser
         self.browser.refresh()
         list_page.wait_for_new_item_in_list('Hi Edith!', 2)
-
