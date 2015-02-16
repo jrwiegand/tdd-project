@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import get_user_model
+from django.views.generic import FormView
 User = get_user_model()
 
 from lists.forms import ExistingListItemForm, ItemForm, NewListForm
@@ -38,3 +39,8 @@ def share_list(request, list_id):
     list_ = List.objects.get(id=list_id)
     list_.shared_with.add(request.POST['email'])
     return redirect(list_)
+
+
+class HomePageView(FormView):
+    template_name = 'home.html'
+    form_class = ItemForm
