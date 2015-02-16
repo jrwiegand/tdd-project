@@ -1,14 +1,25 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import get_user_model
-from django.views.generic import FormView
+from django.views.generic import FormView, CreateView
 User = get_user_model()
 
 from lists.forms import ExistingListItemForm, ItemForm, NewListForm
 from lists.models import List
 
 
-def home_page(request):
-    return render(request, 'home.html', {'form': ItemForm()})
+class HomePageView(FormView):
+    form_class = ItemForm
+    template_name = 'home.html'
+
+
+class NewListView(CreateView):
+    form_class = ItemForm
+    template_name = 'home.html'
+
+
+    def form_valid(self, form):
+        list_ = form.save(owner=self.user)
+        return redirect(list_)
 
 
 def new_list(request):
@@ -39,8 +50,3 @@ def share_list(request, list_id):
     list_ = List.objects.get(id=list_id)
     list_.shared_with.add(request.POST['email'])
     return redirect(list_)
-
-
-class HomePageView(FormView):
-    template_name = 'home.html'
-    form_class = ItemForm
