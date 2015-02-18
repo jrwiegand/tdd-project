@@ -3,8 +3,8 @@ from django.contrib.auth import get_user_model
 from django.views.generic import FormView, CreateView
 User = get_user_model()
 
-from lists.forms import ExistingListItemForm, ItemForm, NewListForm
-from lists.models import List
+from .forms import ExistingListItemForm, ItemForm, NewListForm
+from .models import List
 
 
 class HomePageView(FormView):
@@ -17,9 +17,8 @@ class NewListView(CreateView):
     template_name = 'home.html'
 
 
-    def form_valid(self, form):
-        list_ = form.save(owner=self.user)
-        return redirect(list_)
+    def post(self, request):
+        return redirect(form.save(owner=request.user))
 
 
 def new_list(request):
