@@ -10,7 +10,7 @@ class List(models.Model):
     )
 
     def get_absolute_url(self):
-        return reverse('view_list', args=[self.id])
+        return reverse('view_list', args=[self.list.id])
 
     @property
     def name(self):
