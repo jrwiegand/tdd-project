@@ -3,6 +3,7 @@ from fabric.api import env, local, run, sudo
 import random
 
 REPO_URL = 'https://github.com/jrwiegand/tdd-project.git'
+PYTHON_3 = '../virtualenv/bin/python3'
 
 
 def deploy():
@@ -52,12 +53,12 @@ def _update_virtualenv(source_folder):
 
 
 def _update_static_files(source_folder):
-    run('cd %s && ../virtualenv/bin/python3 manage.py collectstatic --noinput' %
+    run('cd %s && ' + PYTHON_3 + ' manage.py collectstatic --noinput' %
         (source_folder,))
 
 
 def _update_database(source_folder):
-    run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput' %
+    run('cd %s && ' + PYTHON_3 + ' manage.py migrate --noinput' %
         (source_folder,))
 
 
