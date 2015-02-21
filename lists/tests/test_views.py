@@ -229,3 +229,10 @@ class ShareListTest(TestCase):
             {'email': 'share.with@me.com'}
         )
         self.assertRedirects(response, list_.get_absolute_url())
+
+
+# def test_cbv_gets_correct_object(self):
+#     our_list = List.objects.create()
+#     view = ViewAndAddToList()
+#     view.kwargs = dict(pk=our_list.id)
+#     self.assertEqual(view.get_object(), our_list)
