@@ -32,6 +32,10 @@ class ViewAndAddToList(CreateView, SingleObjectMixin):
         return form_class(for_list=self.object, data=self.request.POST)
 
 
+def home_page(request):
+    return render(request, 'home.html', {'form': ItemForm()})
+
+
 def new_list(request):
     form = NewListForm(data=request.POST)
     if form.is_valid():
@@ -39,15 +43,16 @@ def new_list(request):
         return redirect(list_)
     return render(request, 'home.html', {'form': form})
 
-
 def view_list(request, list_id):
     list_ = List.objects.get(id=list_id)
     form = ExistingListItemForm(for_list=list_)
+
     if request.method == 'POST':
         form = ExistingListItemForm(for_list=list_, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(list_)
+
+    if form.is_valid():
+        form.save()
+        return redirect(list_)
     return render(request, 'list.html', {'list': list_, "form": form})
 
 
