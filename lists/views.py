@@ -23,12 +23,12 @@ class NewListView(CreateView):
 
 
 class ViewAndAddToList(CreateView, SingleObjectMixin):
-    model = List
     template_name = 'list.html'
+    model = List
     form_class = ExistingListItemForm
 
     def get_form(self, form_class):
-        self.objects = self.get_object()
+        self.object = self.get_object()
         return form_class(for_list=self.object, data=self.request.POST)
 
 
