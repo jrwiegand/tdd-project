@@ -5,14 +5,14 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.html import escape
 from django.contrib.auth import get_user_model
-User = get_user_model()
-
+from lists.models import Item, List
+from lists.views import new_list
 from lists.forms import (
     DUPLICATE_ITEM_ERROR, EMPTY_ITEM_ERROR,
     ExistingListItemForm, ItemForm,
 )
-from lists.models import Item, List
-from lists.views import new_list
+
+User = get_user_model()
 
 
 class HomePageTest(TestCase):
