@@ -2,10 +2,11 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import get_user_model
 from django.views.generic import FormView, CreateView
 from django.views.generic.detail import SingleObjectMixin
-User = get_user_model()
 
 from .forms import ExistingListItemForm, ItemForm, NewListForm
 from .models import List
+
+User = get_user_model()
 
 
 class HomePageView(FormView):
@@ -17,9 +18,8 @@ class NewListView(CreateView):
     form_class = ItemForm
     template_name = 'home.html'
 
-
     def post(self, request):
-        return redirect(form.save(owner=request.user))
+        return redirect()
 
 
 class ViewAndAddToList(CreateView, SingleObjectMixin):
@@ -42,6 +42,7 @@ def new_list(request):
         list_ = form.save(owner=request.user)
         return redirect(list_)
     return render(request, 'home.html', {'form': form})
+
 
 def view_list(request, list_id):
     list_ = List.objects.get(id=list_id)
