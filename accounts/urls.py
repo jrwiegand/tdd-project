@@ -4,6 +4,6 @@ login = 'accounts.views.persona_login'
 logout = 'django.contrib.auth.views.logout'
 
 urlpatterns = patterns('',
-                       url(r'^login$', login, name='persona_login'),
-                       url(r'^logout$', logout, {'next_page': '/'}, name='logout'),
-                       )
+   url(r'^login$', login, name='persona_login'),
+   url(r'^logout$', logout, {'next_page': '/'}, name='logout'),
+)
