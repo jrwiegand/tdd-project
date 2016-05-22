@@ -10,7 +10,8 @@ def deploy(db_name='', db_user='', db_pass='', db_host='', db_port=''):
     source_folder = site_folder + '/source'
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder)
-    _update_settings(env.user, db_name,
+    _update_settings(source_folder, env.host,
+                     env.user, db_name,
                      db_user, db_pass,
                      db_host, db_port)
     _update_virtualenv(source_folder)
@@ -30,7 +31,8 @@ def _get_latest_source(source_folder):
     current_commit = local("git log -n 1 --format=%H", capture=True)
     run('cd %s && git reset --hard %s' % (source_folder, current_commit))
 
-def _update_settings(user, db_name,
+def _update_settings(source_folder, site_name,
+                     user, db_name,
                      db_user, db_pass,
                      db_host, db_port):
     virtualenv_folder = '/home/%s/.virtualenvs/tdd/bin/' % (user,)
@@ -58,6 +60,7 @@ def _update_settings(user, db_name,
         append(predeactivate, "unset DB_HOST")
         append(predeactivate, "unset DB_PORT")
 
+    settings_path = source_folder + '/superlists/settings.py'
     sed(settings_path, 'DOMAIN = "localhost"', 'DOMAIN = "%s"' % (site_name,))
 
 
