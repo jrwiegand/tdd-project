@@ -58,6 +58,9 @@ def _update_settings(user, db_name,
         append(predeactivate, "unset DB_HOST")
         append(predeactivate, "unset DB_PORT")
 
+    sed(settings_path, 'DOMAIN = "localhost"', 'DOMAIN = "%s"' % (site_name,))
+
+
 def _update_virtualenv(source_folder):
     with prefix('export WORKON_HOME=$HOME/.virtualenvs'):
         with prefix('export PROJECT_HOME=$HOME/sites'):
