@@ -65,6 +65,11 @@ DATABASES = {
     }
 }
 
+# Security
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'

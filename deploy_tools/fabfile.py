@@ -62,6 +62,9 @@ def _update_settings(source_folder, site_name,
 
     settings_path = source_folder + '/superlists/settings.py'
     sed(settings_path, 'DOMAIN = "localhost"', 'DOMAIN = "%s"' % (site_name,))
+    sed(settings_path, 'SECURE_SSL_REDIRECT = False', 'SECURE_SSL_REDIRECT = True')
+    sed(settings_path, 'SESSION_COOKIE_SECURE = False', 'SESSION_COOKIE_SECURE = True')
+    sed(settings_path, 'CSRF_COOKIE_SECURE = False', 'CSRF_COOKIE_SECURE = True')
 
 
 def _update_virtualenv(source_folder):
